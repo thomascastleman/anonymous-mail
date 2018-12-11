@@ -19,5 +19,13 @@
   "bugs": {
     "url": "https://github.com/thomascastleman/anonymous-mail/issues"
   },
-  "homepage": "https://github.com/thomascastleman/anonymous-mail#readme"
+  "homepage": "https://github.com/thomascastleman/anonymous-mail#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "^4.16.4",
+    "mustache-express": "^1.2.8",
+    "passport": "^0.4.0"
+  }
 }
