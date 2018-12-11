@@ -1,0 +1,58 @@
+
+[User] --> anyone who's NOT an administrator
+[Admin] --> administrators
+
+----------- [User] Stories -----------
+
+[User] GETs "/", server sends homepage with 'send letter' button (redirects to /sendLetter) and 'administrator' button (redirects to /admin)
+
+[User] GETs "/sendLetter" and is redirected to auth with Google--upon authenticating successfully, [User] sees text box with send letter button. (And perhaps, 'Response will be sent to "youremail@gmail.com"')
+
+[User] POSTs letter content to /sendLetter, server stores letter along with return email to await response
+
+
+----------- [Admin] Stories -----------
+
+[Admin] GETs "/" server responds same as [User]
+
+[Admin] GETs /admin, authenticates and is confirmed admin user, server sends /admin page with table of new letters, small input at bottom for authorizing new admin accounts
+
+[Admin] GETs /letter/:id, sees the letter content under this ID, and a text box in which to write a response (filled with any draft content if available), with a submit button to /respond
+		- before allowing you to click on a given letter to respond, the clientside will send out a socket emit to check if any other admin is currently already editing that letter, if so it won't allow you to GET its edit page
+
+[Admin] POSTs letter ID and response content to /saveDraft, server stores info in drafts for later use
+
+[Admin] POSTs letter ID and response content to /respond, server attempts to send response in an email to original sender (nodemailer), removes any drafts under this letter id, removes letter from waiting_letters
+
+[Admin] POSTs an email to /makeAdmin, new administrator account is created
+
+[Admin] GETs /logout, is signed out and redirected to "/"
+
+
+
+
+
+DATABASE SCHEMA:
+
+// this is the only recorded user info
+TABLE administrators (
+	uid
+	email VARCHAR
+	full_name VARCHAR
+)
+
+// all letters waiting for responses
+TABLE waiting_letters (
+	uid 
+	content TEXT
+	sender_email VARCHAR
+	time_received DATETIME
+	draft_started TINYINT
+)
+
+// all saved drafts of responses not yet sent
+TABLE drafts (
+	uid
+	content TEXT
+	letter_uid INT
+)
