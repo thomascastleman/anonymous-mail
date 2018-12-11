@@ -1,0 +1,23 @@
+{
+  "name": "anonymous-mail",
+  "version": "1.0.0",
+  "description": "A service to allow a group of administrators to respond to letters without ever knowing who sent them.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomascastleman/anonymous-mail.git"
+  },
+  "keywords": [
+    "mail",
+    "anonymous"
+  ],
+  "author": "Thomas Castleman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thomascastleman/anonymous-mail/issues"
+  },
+  "homepage": "https://github.com/thomascastleman/anonymous-mail#readme"
+}
