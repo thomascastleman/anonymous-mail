@@ -23,6 +23,8 @@ app.use(session({
 	saveUninitialized: true
 }));
 
+var database = require('./database.js');	// add db file
+
 // start server
 var server = app.listen(8080, function() {
 	console.log('Anonymous Mail server listening on port %d', server.address().port);
