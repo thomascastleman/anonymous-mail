@@ -13,8 +13,6 @@
 
 ----------- [Admin] Stories -----------
 
-[Admin] GETs "/" server responds same as [User]
-
 [Admin] GETs /admin, authenticates and is confirmed admin user, server sends /admin page with table of new letters, small input at bottom for authorizing new admin accounts
 
 [Admin] GETs /letter/:id, sees the letter content under this ID, and a text box in which to write a response (filled with any draft content if available), with a submit button to /respond
