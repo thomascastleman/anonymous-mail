@@ -12,11 +12,23 @@ module.exports = {
 
 	// set up routes and configure authentication settings
 	init: function(app, passport) {
-
 		// cache user info from our system into their session
 		passport.serializeUser(function(user, done) {
-			console.log(user);
-			done(null, user);
+			// look for administrator with this email
+			con.query('SELECT * FROM administrators WHERE email = ?;', [user.email], function(err, rows) {
+				if (!err && rows !== undefined && rows.length > 0) {
+					user.local = rows[0];	// record local db info in session
+					user.local.isAdmin = 1;	// record that user is admin
+				} else {
+					// create local cache of info
+					user.local = {
+						email: user.email,
+						full_name: user.displayName
+					};
+				}
+
+				done(null, user);
+			});
 		});
 
 		passport.deserializeUser(function(user, done) {
@@ -54,10 +66,10 @@ module.exports = {
 				failureRedirect: '/failure'
 		}));
 
-		// // handler for failure to authenticate
-		// app.get('/failure', function(req, res) {
-		// 	res.render('error.html', { message: "Unable to authenticate." });
-		// });
+		// handler for failure to authenticate
+		app.get('/failure', function(req, res) {
+			res.render('error.html', { message: "Unable to authenticate." });
+		});
 
 		// logout handler
 		app.get('/logout', module.exports.checkReturnTo, function(req, res){
@@ -94,7 +106,7 @@ module.exports = {
 		// if authenticated and has session data
 		if (req.isAuthenticated() && req.user.local) {
 			// if administrator, allow
-			if (req.user.local.is_admin) {
+			if (req.user.local.isAdmin) {
 				return next();
 			} else {
 				res.redirect('/');
@@ -115,10 +127,10 @@ module.exports = {
 
 	// middleware (for POSTs) to check if requester is admin
 	isAdmin: function(req, res, next) {
-		if (req.isAuthenticated() && req.user.local && req.user.local.is_admin == 1) {
+		if (req.isAuthenticated() && req.user.local && req.user.local.isAdmin == 1) {
 			return next();
 		} else {
 			res.redirect('/');
 		}
 	}
-}
+};
