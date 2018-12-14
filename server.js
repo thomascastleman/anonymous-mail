@@ -24,6 +24,7 @@ app.use(session({
 }));
 
 var database = require('./database.js');	// add db file
+var auth = require('./auth.js').init(app, passport);	// add auth file
 
 // start server
 var server = app.listen(8080, function() {

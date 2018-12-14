@@ -15,6 +15,7 @@ module.exports = {
 
 		// cache user info from our system into their session
 		passport.serializeUser(function(user, done) {
+			console.log(user);
 			done(null, user);
 		});
 
@@ -67,9 +68,6 @@ module.exports = {
 		return module.exports;
 	},
 
-	getRealName: function(user) {
-		return user.name.givenName + ' ' + user.name.familyName[0];
-	},
 
 	// middleware to check for a URL to return to after authenticating
 	checkReturnTo: function(req, res, next) {
