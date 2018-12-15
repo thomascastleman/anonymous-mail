@@ -26,6 +26,7 @@ app.use(session({
 var database = require('./database.js');	// add db file
 var auth = require('./auth.js').init(app, passport);	// add auth file
 var user = require('./user.js').init(app);	// add user routes
+var admin = require('./admin.js').init(app);	// add administrator routes
 
 // start server
 var server = app.listen(8080, function() {

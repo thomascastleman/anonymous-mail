@@ -109,7 +109,7 @@ module.exports = {
 			if (req.user.local.isAdmin) {
 				return next();
 			} else {
-				res.redirect('/');
+				res.render('error.html', { message: "You do not have administrator privileges." });
 			}
 		} else {
 			res.redirect('/auth/google?returnTo=' + querystring.escape(req.url));

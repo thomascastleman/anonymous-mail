@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Administrator Portal</title>
+</head>
+<body>
+	<h1>Letters</h1>
+	<table>
+		<tr>
+			<th>Letter Content</th>
+			<th>Time Received</th>
+			<th>Draft Started?</th>
+		</tr>
+		{{#letters}}
+		<tr>
+			<td><a href="/letter/{{uid}}">{{preview}}</a></td>
+			<td>{{time_received}}</td>
+			<td>{{draft_started}}</td>
+		</tr>
+		{{/letters}}
+	</table>
+
+	<form action="/newAdmin" method="POST">
+		<h4>Authorize a New Administrator Account</h4>
+		<input type="text" placeholder="Enter email">
+		<input type="submit">
+	</form>
+</body>
+</html>

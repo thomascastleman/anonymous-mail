@@ -4,16 +4,16 @@
 
 ----------- [User] Stories -----------
 
-[User] GETs "/", server sends homepage with 'send letter' button (redirects to /sendLetter) and 'administrator' button (redirects to /admin)
+(COMPLETED) [User] GETs "/", server sends homepage with 'send letter' button (redirects to /sendLetter) and 'administrator' button (redirects to /admin)
 
-[User] GETs "/sendLetter" and is redirected to auth with Google--upon authenticating successfully, [User] sees text box with send letter button. (And perhaps, 'Response will be sent to "youremail@gmail.com"')
+(COMPLETED) [User] GETs "/sendLetter" and is redirected to auth with Google--upon authenticating successfully, [User] sees text box with send letter button. (And perhaps, 'Response will be sent to "youremail@gmail.com"')
 
-[User] POSTs letter content to /sendLetter, server stores letter along with return email to await response
+(COMPLETED) [User] POSTs letter content to /sendLetter, server stores letter along with return email to await response
 
 
 ----------- [Admin] Stories -----------
 
-[Admin] GETs /admin, authenticates and is confirmed admin user, server sends /admin page with table of new letters, small input at bottom for authorizing new admin accounts
+(COMPLETED) [Admin] GETs /admin, authenticates and is confirmed admin user, server sends /admin page with table of new letters, small input at bottom for authorizing new admin accounts
 
 [Admin] GETs /letter/:id, sees the letter content under this ID, and a text box in which to write a response (filled with any draft content if available), with a submit button to /respond
 		- before allowing you to click on a given letter to respond, the clientside will send out a socket emit to check if any other admin is currently already editing that letter, if so it won't allow you to GET its edit page
