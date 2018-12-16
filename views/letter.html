@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Respond to a Letter</title>
+</head>
+<body>
+
+	<a href="/admin">Back</a>
+	<p>Received {{time_received}}</p>
+	<p>{{content}}</p>
+	<form name="respondForm" action="/respond/{{uid}}" method="POST">
+		<input name="isDraft" value="0" hidden>
+		<textarea name="response">{{draft}}</textarea>
+		<input type="submit" value="Send Response">
+		<input type="submit" value="Save Draft" onclick="document.respondForm.isDraft.value = 1;">
+	</form>
+
+</body>
+</html>

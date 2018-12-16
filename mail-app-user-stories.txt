@@ -15,7 +15,12 @@
 
 (COMPLETED) [Admin] GETs /admin, authenticates and is confirmed admin user, server sends /admin page with table of new letters, small input at bottom for authorizing new admin accounts
 
-[Admin] GETs /letter/:id, sees the letter content under this ID, and a text box in which to write a response (filled with any draft content if available), with a submit button to /respond
+(COMPLETED) [Admin] GETs /letter/:id, sees the letter content under this ID, and a text box in which to write a response (filled with any draft content if available), with a submit button to /respond
+
+
+
+
+
 		- before allowing you to click on a given letter to respond, the clientside will send out a socket emit to check if any other admin is currently already editing that letter, if so it won't allow you to GET its edit page
 
 [Admin] POSTs letter ID and response content to /saveDraft, server stores info in drafts for later use
