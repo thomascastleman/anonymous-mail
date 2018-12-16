@@ -2,6 +2,9 @@
 <html>
 <head>
 	<title>Respond to a Letter</title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script> socket = io(); </script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 </head>
 <body>
 
@@ -9,11 +12,28 @@
 	<p>Received {{time_received}}</p>
 	<p>{{content}}</p>
 	<form name="respondForm" action="/respond/{{uid}}" method="POST">
-		<input name="isDraft" value="0" hidden>
 		<textarea name="response">{{draft}}</textarea>
 		<input type="submit" value="Send Response">
-		<input type="submit" value="Save Draft" onclick="document.respondForm.isDraft.value = 1;">
+		<input value="Save Draft" type="button" onclick="socket.emit('saveDraft', { letterUID: {{uid}}, draft: document.respondForm.response.value });">
 	</form>
 
+	<p id="saveSuccess" hidden>Draft successfully saved!</p>
+	<p id="saveFailure" hidden>Draft failed to save.</p>
+
 </body>
+<script>
+	socket.emit('currentlyModifying', {{uid}});
+
+	$saveSuccess = $('#saveSuccess');
+	$saveFailure = $('#saveFailure');
+
+	socket.on('draftSavedResponse', function(success) {
+		// show message based on save status
+		if (success) {
+			$saveSuccess.show().delay(2000).fadeOut();
+		} else {
+			$saveFailure.show().delay(2000).fadeOut();
+		}
+	});
+</script>
 </html>

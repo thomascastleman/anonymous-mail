@@ -6,6 +6,8 @@ var cookieParser 		= require('cookie-parser');
 var session 			= require('cookie-session');
 var passport 			= require('passport');
 var creds				= require('./credentials.js');
+var server          	= require('http').createServer(app);
+var socket          	= require('socket.io')(server);
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,9 +28,9 @@ app.use(session({
 var database = require('./database.js');	// add db file
 var auth = require('./auth.js').init(app, passport);	// add auth file
 var user = require('./user.js').init(app);	// add user routes
-var admin = require('./admin.js').init(app);	// add administrator routes
+var admin = require('./admin.js').init(app, socket);	// add administrator routes
 
 // start server
-var server = app.listen(8080, function() {
+server.listen(8080, function() {
 	console.log('Anonymous Mail server listening on port %d', server.address().port);
 });
