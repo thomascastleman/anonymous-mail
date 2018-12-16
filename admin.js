@@ -60,8 +60,15 @@ module.exports = {
 						// insert a new draft
 						con.query('INSERT INTO drafts (content, letter_uid) VALUES (?, ?);', [req.body.response, req.params.id], function(err, rows) {
 							if (!err) {
-								// notify of success
-								res.render('respondSuccess.html', { isDraft: 1, content: req.body.response });
+								// update status as existing draft
+								con.query('UPDATE waiting_letters SET draft_started = 1 WHERE uid = ?;', [req.params.id], function(err, rows) {
+									if (!err) {
+										// notify of success
+										res.render('respondSuccess.html', { isDraft: 1, content: req.body.response });
+									} else {
+										res.render('error.html', { message: "Unable to register new draft." });
+									}
+								});
 							} else {
 								// notify of error inserting
 								res.render('error.html', { message: "Unable to save draft." });
@@ -70,9 +77,33 @@ module.exports = {
 					}
 				});
 			} else {
-				console.log("is NOT  a draft");
-				res.end();
+				// get letter sender email
+				con.query('SELECT sender_email FROM waiting_letters WHERE uid = ?;', [req.params.id], function(err, rows) {
+					if (!err && rows !== undefined && rows.length > 0) {
+
+						// SEND EMAIL TO rows[0].sender_email WITH CONTENT req.body.response THROUGH NODEMAILER
+
+						console.log("Sending email to " + rows[0].sender_email);
+						console.log("Content: " + req.body.response);
+
+					} else {
+						res.render('error.html', { message: "Unable to locate sender email." });
+					}
+				});
 			}
+		});
+
+		// create a new administrator account
+		app.post('/newAdmin', auth.isAdmin, function(req, res) {
+			console.log(req.body);
+
+			con.query('INSERT INTO administrators (full_name, email) VALUES (?, ?);', [req.body.name, req.body.email], function(err, rows) {
+				if (!err) {
+					res.render('adminAuthSuccess.html', { name: req.body.name, email: req.body.email });
+				} else {
+					res.render('error.html', { message: "Unable to add new adminstrator." });
+				}
+			});
 		});
 	}
 
