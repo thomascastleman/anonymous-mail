@@ -32,12 +32,12 @@ module.exports = {
 	},
 
 	// send the email response to a given letter.
-	sendLetterResponse: function(toEmail, responseContent, callback) {
+	sendLetterResponse: function(toEmail, emailHTML, responseRawContent, callback) {
 		module.exports.sendMail({
 			to: toEmail,
 			subject: "Your letter has been responded to!",
-			text: responseContent,
-			html: responseContent
+			text: responseRawContent,
+			html: emailHTML
 		}, callback);
 	}
 }

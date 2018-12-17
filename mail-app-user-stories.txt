@@ -20,7 +20,7 @@
 
 (COMPLETED) [Admin] POSTs letter ID and response content to /response, with flag to save as draft, server stores info in drafts for later use
 
-[Admin] POSTs letter ID and response content to /respond, server attempts to send response in an email to original sender (nodemailer), removes any drafts under this letter id, removes letter from waiting_letters
+(COMPLETED) [Admin] POSTs letter ID and response content to /respond, server attempts to send response in an email to original sender (nodemailer), removes any drafts under this letter id, removes letter from waiting_letters
 
 (COMPLETED) [Admin] POSTs an email to /makeAdmin, new administrator account is created
 

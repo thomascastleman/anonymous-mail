@@ -4,6 +4,7 @@
 	<title>Anonymous Mail</title>
 </head>
 <body>
+	{{#isAuthenticated}}<span>{{authMessage}} </span><a href="/logout">Log Out</a><br>{{/isAuthenticated}}
 	<a href="/admin">Administrators</a><br>
 	<a href="/sendLetter">Send Letter!</a>
 </body>

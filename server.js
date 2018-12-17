@@ -29,6 +29,7 @@ var database = require('./database.js');	// add db file
 var auth = require('./auth.js').init(app, passport);	// add auth file
 var user = require('./user.js').init(app);	// add user routes
 var admin = require('./admin.js').init(app, socket);	// add administrator routes
+var mail = require('./mail.js');
 
 // start server
 server.listen(8080, function() {

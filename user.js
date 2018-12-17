@@ -11,7 +11,15 @@ module.exports = {
 	init: function(app) {
 		// send user the homepage when accessing root
 		app.get('/', function(req, res) {
-			res.render('homePage.html');
+			var render = {};
+
+			// add logout button and greeting if auth'd
+			if (req.isAuthenticated()) {
+				render.isAuthenticated = true;
+				render.authMessage = "Welcome, " + req.user.displayName + "!";
+			}
+
+			res.render('homePage.html', render);
 		});
 
 		// handle request to receive letter writing page

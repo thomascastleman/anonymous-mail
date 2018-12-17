@@ -5,6 +5,19 @@
 
 var auth = require('./auth.js');
 var con = require('./database.js').connection;
+var mail = require('./mail.js');
+var fs = require('fs');
+var mustache = require('mustache');
+
+// read response email template into variable
+var responseEmail;
+fs.readFile('./views/responseEmail.html', 'UTF8', function(err, data) {
+	if (!err) {
+		responseEmail = data;
+	} else {
+		console.err("Error reading response email template");
+	}
+});
 
 module.exports = {
 	// set up routes
@@ -99,40 +112,28 @@ module.exports = {
 		// receive a letter response or draft save
 		app.post('/respond/:id', auth.isAdmin, function(req, res) {
 			// get letter sender email
-			con.query('SELECT sender_email FROM waiting_letters WHERE uid = ?;', [req.params.id], function(err, rows) {
+			con.query('SELECT content, sender_email, DATE_FORMAT(time_received, "%M %D, %Y at %I:%i %p") AS time_received FROM waiting_letters WHERE uid = ?;', [req.params.id], function(err, rows) {
 				if (!err && rows !== undefined && rows.length > 0) {
+					// compose email by filling in template with letter and response content
+					var emailHTML = mustache.render(responseEmail, {
+						time_received: rows[0].time_received,
+						letterContent: rows[0].content,
+						responseContent: req.body.response
+					});
 
-
-
-
-
-
-
-
-
-
-					// SEND EMAIL TO rows[0].sender_email WITH CONTENT req.body.response THROUGH NODEMAILER
-
-					console.log("Sending email to " + rows[0].sender_email);
-					console.log("Content: " + req.body.response);
-
-					// // Something like...
-					// mail.sendLetterResponse(rows[0].sender_email, req.body.response, function(err) {
-
-					// });
-
-
-
-
-
-
-
-					// if email successful, delete the letter from waiting_letters and also any associated drafts in the drafts table (via delete cascade)
-					con.query('DELETE FROM waiting_letters WHERE uid = ?;', [req.params.id], function(err, rows) {
+					// send letter response to sender's email
+					mail.sendLetterResponse(rows[0].sender_email, emailHTML, req.body.response, function(err) {
 						if (!err) {
-							res.render('letterRespondSuccess.html', { content: req.body.response });
+							// if email successful, delete the letter from waiting_letters and also any associated drafts in the drafts table (via delete cascade)
+							con.query('DELETE FROM waiting_letters WHERE uid = ?;', [req.params.id], function(err, rows) {
+								if (!err) {
+									res.render('letterRespondSuccess.html', { content: req.body.response });
+								} else {
+									res.render('error.html', { message: "Unable to delete letter content." });
+								}
+							});
 						} else {
-							res.render('error.html', { message: "Unable to delete letter content." });
+							res.render('error.html', { message: "Unable to send response email." });
 						}
 					});
 
