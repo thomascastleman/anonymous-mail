@@ -25,32 +25,3 @@
 (COMPLETED) [Admin] POSTs an email to /makeAdmin, new administrator account is created
 
 (COMPLETED) [Admin] GETs /logout, is signed out and redirected to "/"
-
-
-
-
-
-DATABASE SCHEMA:
-
-// this is the only recorded user info
-TABLE administrators (
-	uid
-	email VARCHAR
-	full_name VARCHAR
-)
-
-// all letters waiting for responses
-TABLE waiting_letters (
-	uid 
-	content TEXT
-	sender_email VARCHAR
-	time_received DATETIME
-	draft_started TINYINT
-)
-
-// all saved drafts of responses not yet sent
-TABLE drafts (
-	uid
-	content TEXT
-	letter_uid INT
-)
