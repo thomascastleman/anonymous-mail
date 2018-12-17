@@ -17,6 +17,8 @@ module.exports = {
 			if (req.isAuthenticated()) {
 				render.isAuthenticated = true;
 				render.authMessage = "Welcome, " + req.user.displayName + "!";
+			} else {
+				render.authMessage = "Welcome!";
 			}
 
 			res.render('homePage.html', render);

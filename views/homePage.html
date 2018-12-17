@@ -2,10 +2,28 @@
 <html>
 <head>
 	<title>Anonymous Mail</title>
+	<link rel="stylesheet" type="text/css" href="homePage.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
-	{{#isAuthenticated}}<span>{{authMessage}} </span><a href="/logout">Log Out</a><br>{{/isAuthenticated}}
-	<a href="/admin">Administrators</a><br>
-	<a href="/sendLetter">Send Letter!</a>
+	<ul>
+	  <li><a href="#">{{authMessage}}</a></li>
+	  {{#isAuthenticated}}
+	  <li><a href="/logout">Log Out</a></li>
+	  {{/isAuthenticated}}
+	  <li style="float:right"><a href="/admin">Administrators</a></li>
+	</ul>
+	<div class="w3-display-middle darken">
+	  	<center>
+		    <h1 class="w3-jumbo w3-animate-top">
+		    	<a id="sendLink" href="/sendLetter">Send a Letter!</a>
+		    </h1>
+		</center>
+	    <hr class="w3-border-grey" style="margin:auto;width:40%">
+	    <p class="w3-large w3-center">
+			All mail is sent completely anonymously
+	    </p>
+	</div>
 </body>
 </html>
