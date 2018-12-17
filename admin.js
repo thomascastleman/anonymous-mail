@@ -73,7 +73,7 @@ module.exports = {
 			var render = {};
 
 			// get all letters currently awaiting responses
-			con.query('SELECT SUBSTR(content, 1, 50) AS preview, uid, sender_email, DATE_FORMAT(time_received, "%I:%i %p on %M %D, %Y") AS time_received, draft_started FROM waiting_letters;', function(err, rows) {
+			con.query('SELECT SUBSTR(content, 1, 50) AS preview, uid, sender_email, DATE_FORMAT(time_received, "%I:%i %p on %M %D, %Y") AS time_received, draft_started FROM waiting_letters ORDER BY time_received DESC;', function(err, rows) {
 				if (!err && rows !== undefined) {
 					render.letters = rows;
 				}
@@ -102,15 +102,39 @@ module.exports = {
 			con.query('SELECT sender_email FROM waiting_letters WHERE uid = ?;', [req.params.id], function(err, rows) {
 				if (!err && rows !== undefined && rows.length > 0) {
 
+
+
+
+
+
+
+
+
+
 					// SEND EMAIL TO rows[0].sender_email WITH CONTENT req.body.response THROUGH NODEMAILER
 
 					console.log("Sending email to " + rows[0].sender_email);
 					console.log("Content: " + req.body.response);
 
-					res.end();
+					// // Something like...
+					// mail.sendLetterResponse(rows[0].sender_email, req.body.response, function(err) {
+
+					// });
 
 
-					// Now, delete the letter from waiting_letters and also any associated drafts in the drafts table
+
+
+
+
+
+					// if email successful, delete the letter from waiting_letters and also any associated drafts in the drafts table (via delete cascade)
+					con.query('DELETE FROM waiting_letters WHERE uid = ?;', [req.params.id], function(err, rows) {
+						if (!err) {
+							res.render('letterRespondSuccess.html', { content: req.body.response });
+						} else {
+							res.render('error.html', { message: "Unable to delete letter content." });
+						}
+					});
 
 				} else {
 					res.render('error.html', { message: "Unable to locate sender email." });

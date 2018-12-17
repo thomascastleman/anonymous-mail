@@ -27,7 +27,7 @@ CREATE TABLE drafts (
 	uid INT NOT NULL AUTO_INCREMENT,
 	content TEXT,
 	letter_uid INT,
-	FOREIGN KEY (letter_uid) REFERENCES waiting_letters(uid),
+	FOREIGN KEY (letter_uid) REFERENCES waiting_letters(uid) ON DELETE CASCADE,
 	PRIMARY KEY (uid)
 );
 
