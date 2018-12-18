@@ -1,0 +1,19 @@
+body {
+  background: #d9d9d9;
+}
+
+* {
+  font-family: 'Lato', sans-serif;
+}
+
+#success {
+	color: #1aa3ff;
+	font-weight: bold;
+	font-size: 25px;
+}
+
+#letterContent {
+	background-color: #c0c0c0;
+	border-radius: 4px;
+	padding: 5px;
+}

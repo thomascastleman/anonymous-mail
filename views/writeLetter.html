@@ -2,13 +2,23 @@
 <html>
 <head>
 	<title>Write a Letter</title>
+	<link rel="stylesheet" type="text/css" href="writeLetter.css">
+	<link rel="stylesheet" type="text/css" href="navbar.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
-	<a href="/">Back</a>
-	<form action="/sendLetter" method="POST">
-		<h2>A response will be sent to {{email}}</h2>
-		<textarea name="letterContent"></textarea>
-		<input type="submit">
-	</form>
+	<ul>
+	  <li><a href="/">Back</a></li>
+	</ul>
+	<div class="w3-display-middle darken">
+	    <center>
+		    <form action="/sendLetter" method="POST">
+				<h4>A response will be sent to <strong>{{email}}</strong> <i><a href="/auth/google?returnTo=%2FsendLetter">Change</a></i></h4>
+				<textarea name="letterContent" placeholder="Type letter here..." rows="20" cols="75"></textarea><br>
+				<input class="submit" type="submit">
+			</form>
+		</center>
+	</div>
 </body>
 </html>

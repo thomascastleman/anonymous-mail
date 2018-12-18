@@ -2,12 +2,22 @@
 <html>
 <head>
 	<title>Success!</title>
+	<link rel="stylesheet" type="text/css" href="letterSentSuccess.css">
+	<link rel="stylesheet" type="text/css" href="navbar.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
-	<a href="/">Home</a>
-	<h1>Your letter was sent successfully!</h1>
-	<h3>A response will be sent to {{email}}</h3>
-	<h4>What you wrote:</h4>
-	<p>{{letterContent}}</p>
+	<ul>
+	  <li><a href="/">Home</a></li>
+	</ul>
+	<div class="w3-display-middle darken">
+	  	<center>
+		    <p id="success">Your letter was sent successfully!</p>
+			<p>A response will be sent to <strong>{{email}}</strong></p>
+			<p>What you wrote:</p>
+			<p id="letterContent" align="left">{{{letterContent}}}</p>
+		</center>
+	</div>
 </body>
 </html>

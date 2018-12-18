@@ -2,37 +2,52 @@
 <html>
 <head>
 	<title>Administrator Portal</title>
+	<link rel="stylesheet" type="text/css" href="adminPage.css">
+	<link rel="stylesheet" type="text/css" href="navbar.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
 	<script src="/socket.io/socket.io.js"></script>
 	<script> socket = io(); </script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 </head>
 <body>
-	<a href="/">Back</a>
-	<a href="/logout">Log Out</a>
-	<h1>Letters</h1>
-	<a onclick="window.location.href='/admin'">Refresh</a>
-	<p id="failureToEdit" hidden>Another administrator is currently editing that letter draft. You are unable to proceed.</p>
-	<table>
-		<tr>
-			<th>Letter Content</th>
-			<th>Time Received</th>
-			<th>Draft Started?</th>
-		</tr>
-		{{#letters}}
-		<tr>
-			<td><a onclick="socket.emit('requestLetter', {{uid}});">{{preview}}</a></td>
-			<td>{{time_received}}</td>
-			<td>{{draft_started}}</td>
-		</tr>
-		{{/letters}}
-	</table>
+	<ul>
+	  <li><a href="/">Back</a></li>
+	  <li><a href="/logout">Log Out</a></li>
+	</ul>
+	<div class="container">
+		<p id="heading">Letters</p>
+		<a id="refresh" onclick="window.location.href='/admin'">Refresh<i class="fas fa-sync-alt"></i></a>
+		<p id="failureToEdit" hidden><i class="fas fa-ban"></i> Another administrator is currently editing that letter draft. You are unable to proceed.</p>
+		<table>
+			<tr>
+				<th>Letter Content</th>
+				<th>Time Received</th>
+				<th>Draft Started?</th>
+			</tr>
+			{{#letters}}
+			<tr>
+				<td><a class="letterLink" onclick="socket.emit('requestLetter', {{uid}});">{{preview}}</a></td>
+				<td><center>{{time_received}}</center></td>
+				<td>
+					<center>
+						{{#draft_started}}<i class="fas fa-check-circle green"></i>{{/draft_started}}
+						{{^draft_started}}<i class="fas fa-times-circle red"></i>{{/draft_started}}
+					</center>
+				</td>
+			</tr>
+			{{/letters}}
+		</table>
 
-	<form action="/newAdmin" method="POST">
-		<h4>Authorize a New Administrator Account</h4>
-		<input name="email" type="text" placeholder="Enter email">
-		<input name="name" type="text" placeholder="Name">
-		<input type="submit">
-	</form>
+		<form action="/newAdmin" method="POST">
+			<p id="authorizeHeader">Authorize a New Administrator Account</p>
+			<input name="email" type="text" placeholder="Enter email" autocomplete="off">
+			<input name="name" type="text" placeholder="Enter name" autocomplete="off">
+			<input id="submit" type="submit">
+		</form>
+	</div>
 </body>
 <script>
 	$failureToEdit = $('#failureToEdit');

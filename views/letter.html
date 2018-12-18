@@ -9,7 +9,7 @@
 <body>
 	<a href="/admin">Back</a>
 	<p>Received {{time_received}}</p>
-	<p>{{content}}</p>
+	<p>{{{content}}}</p>
 	<form name="respondForm" action="/respond/{{uid}}" method="POST">
 		<textarea name="response">{{draft}}</textarea>
 		<input type="submit" value="Send Response">

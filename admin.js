@@ -86,8 +86,13 @@ module.exports = {
 			var render = {};
 
 			// get all letters currently awaiting responses
-			con.query('SELECT SUBSTR(content, 1, 50) AS preview, uid, sender_email, DATE_FORMAT(time_received, "%I:%i %p on %M %D, %Y") AS time_received, draft_started FROM waiting_letters ORDER BY time_received DESC;', function(err, rows) {
-				if (!err && rows !== undefined) {
+			con.query('SELECT REPLACE(SUBSTR(content, 1, 50), "<br>", "") AS preview, uid, sender_email, DATE_FORMAT(time_received, "%I:%i %p on %M %D, %Y") AS time_received, draft_started FROM waiting_letters ORDER BY time_received DESC;', function(err, rows) {
+				if (!err && rows !== undefined) {	
+					// convert integer representations of booleans into actual booleans for mustache
+					for (var i = 0; i < rows.length; i++) {
+						rows[i].draft_started = rows[i].draft_started == 1 ? true : false;
+					}
+
 					render.letters = rows;
 				}
 

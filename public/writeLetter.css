@@ -1,0 +1,45 @@
+body, html {
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  background: #d9d9d9;
+}
+
+* {
+  font-family: 'Lato', sans-serif;
+}
+
+textarea {
+	width: 50%;
+	min-width: 500px;
+	height: auto;
+	border-radius: 4px;
+	border: 1px solid DarkGray;
+	padding: 4px;
+	resize: vertical;
+}
+
+.darken {
+	background-color: rgba(0, 0, 0, 0.15);
+	padding: 30px;
+	padding-left: 50px;
+	padding-right: 50px;
+	width: 100%;
+}
+
+.submit {
+	color: white;
+	background-color: #1aa3ff;
+	padding: 10px;
+	border:none;
+	border-radius: 4px;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+
+.submit:hover {
+	background-color: #66c2ff;
+	cursor: pointer;
+}

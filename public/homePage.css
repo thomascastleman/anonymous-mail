@@ -11,30 +11,6 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #4d4d4d;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: #1aa3ff;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: #111;
-}
-
 #centerDiv {
   background-color: blue;
   width: 400px;
@@ -49,5 +25,5 @@ li a:hover {
 }
 
 #sendLink:hover {
-
+  color: #66c2ff;
 }

@@ -31,6 +31,8 @@ module.exports = {
 
 		// receive a new letter
 		app.post('/sendLetter', auth.isAuthenticated, function(req, res) {
+			req.body.letterContent = req.body.letterContent.replace(/\n/g, '<br>');
+
 			// if letter is non-empty
 			if (req.body.letterContent != "") {
 				// attempt to add new letter to db
