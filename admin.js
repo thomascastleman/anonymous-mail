@@ -86,7 +86,7 @@ module.exports = {
 			var render = {};
 
 			// get all letters currently awaiting responses
-			con.query('SELECT REPLACE(SUBSTR(content, 1, 50), "<br>", "") AS preview, uid, sender_email, DATE_FORMAT(time_received, "%I:%i %p on %M %D, %Y") AS time_received, draft_started FROM waiting_letters ORDER BY time_received DESC;', function(err, rows) {
+			con.query('SELECT REPLACE(SUBSTR(content, 1, 60), "<br>", "") AS preview, uid, sender_email, DATE_FORMAT(time_received, "%I:%i %p on %M %D, %Y") AS time_string, time_received, draft_started FROM waiting_letters ORDER BY time_received DESC;', function(err, rows) {
 				if (!err && rows !== undefined) {	
 					// convert integer representations of booleans into actual booleans for mustache
 					for (var i = 0; i < rows.length; i++) {
@@ -116,6 +116,9 @@ module.exports = {
 
 		// receive a letter response or draft save
 		app.post('/respond/:id', auth.isAdmin, function(req, res) {
+			// replace linebreaks with HTML linebreaks
+			req.body.response = req.body.response.replace(/\n/g, '<br>');
+
 			// get letter sender email
 			con.query('SELECT content, sender_email, DATE_FORMAT(time_received, "%M %D, %Y at %I:%i %p") AS time_received FROM waiting_letters WHERE uid = ?;', [req.params.id], function(err, rows) {
 				if (!err && rows !== undefined && rows.length > 0) {

@@ -2,10 +2,19 @@
 <html>
 <head>
 	<title>Success!</title>
+	<link rel="stylesheet" type="text/css" href="adminAuthSuccess.css">
+	<link rel="stylesheet" type="text/css" href="navbar.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
-	<a href="/admin">Back</a>
-	<h1>Administrator account created successfully!</h1>
-	<h2>{{name}} ({{email}})</h2>
+	<ul>
+		<li><a href="/admin">Back</a></li>
+	</ul>
+	<div class="container">
+		<p class="header">Administrator account created successfully!</p>
+		<p>{{name}} ({{email}}) now has administrator privileges.</p>
+	</div>
 </body>
 </html>

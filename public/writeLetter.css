@@ -22,7 +22,7 @@ textarea {
 }
 
 .darken {
-	background-color: rgba(0, 0, 0, 0.15);
+	/*background-color: rgba(0, 0, 0, 0.15);*/
 	padding: 30px;
 	padding-left: 50px;
 	padding-right: 50px;

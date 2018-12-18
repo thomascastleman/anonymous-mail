@@ -2,22 +2,35 @@
 <html>
 <head>
 	<title>Respond to a Letter</title>
+	<link rel="stylesheet" type="text/css" href="../letter.css">
+	<link rel="stylesheet" type="text/css" href="../navbar.css">	
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
 	<script src="/socket.io/socket.io.js"></script>
 	<script> socket = io(); </script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 </head>
 <body>
-	<a href="/admin">Back</a>
-	<p>Received {{time_received}}</p>
-	<p>{{{content}}}</p>
-	<form name="respondForm" action="/respond/{{uid}}" method="POST">
-		<textarea name="response">{{draft}}</textarea>
-		<input type="submit" value="Send Response">
-		<input value="Save Draft" type="button" onclick="socket.emit('saveDraft', { letterUID: {{uid}}, draft: document.respondForm.response.value });">
-	</form>
+	<ul>
+		<li><a href="/admin">Back</a></li>
+	</ul>
 
-	<p id="saveSuccess" hidden>Draft successfully saved!</p>
-	<p id="saveFailure" hidden>Draft failed to save.</p>
+	<div class="container">
+		<p><i>Received {{time_received}}</i></p>
+		<p>{{{content}}}</p>
+
+		<center>
+			<form name="respondForm" action="/respond/{{uid}}" method="POST">
+				<textarea name="response" placeholder="Write response here..." rows="20">{{draft}}</textarea><br>
+				<input class="submit" value="Save Draft" type="button" onclick="socket.emit('saveDraft', { letterUID: {{uid}}, draft: document.respondForm.response.value });">
+				<input class="submit" id="sendResponse" type="submit" value="Send Response" onclick="return confirm('Are you sure you want to send this response?');">
+			</form>
+		</center>
+
+		<p id="saveSuccess" hidden><i class="far fa-check-circle"></i> Draft successfully saved!</p>
+		<p id="saveFailure" hidden><i class="far fa-times-circle"></i> Draft failed to save.</p>
+	</div>
 
 </body>
 <script>
@@ -29,9 +42,9 @@
 	socket.on('draftSavedResponse', function(success) {
 		// show message based on save status
 		if (success) {
-			$saveSuccess.show().delay(2000).fadeOut();
+			$saveSuccess.slideDown(100).delay(2000).fadeOut();
 		} else {
-			$saveFailure.show().delay(2000).fadeOut();
+			$saveFailure.slideDown(100).delay(2000).fadeOut();
 		}
 	});
 </script>

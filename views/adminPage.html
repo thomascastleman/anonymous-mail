@@ -29,8 +29,8 @@
 			</tr>
 			{{#letters}}
 			<tr>
-				<td><a class="letterLink" onclick="socket.emit('requestLetter', {{uid}});">{{preview}}</a></td>
-				<td><center>{{time_received}}</center></td>
+				<td><a class="letterLink" onclick="socket.emit('requestLetter', {{uid}});">{{preview}}...</a></td>
+				<td><center>{{time_string}}</center></td>
 				<td>
 					<center>
 						{{#draft_started}}<i class="fas fa-check-circle green"></i>{{/draft_started}}
@@ -43,9 +43,9 @@
 
 		<form action="/newAdmin" method="POST">
 			<p id="authorizeHeader">Authorize a New Administrator Account</p>
-			<input name="email" type="text" placeholder="Enter email" autocomplete="off">
-			<input name="name" type="text" placeholder="Enter name" autocomplete="off">
-			<input id="submit" type="submit">
+			<input name="email" type="text" placeholder="Enter email" autocomplete="off"><br>
+			<input name="name" type="text" placeholder="Enter name" autocomplete="off"><br>
+			<input id="submit" type="submit" value="Authorize">
 		</form>
 	</div>
 </body>

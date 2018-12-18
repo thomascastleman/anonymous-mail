@@ -14,7 +14,7 @@ body {
 	border-radius: 5px;
 	margin: 0 auto;
 	margin-top: 20px;
-	margin-bottom: 100px;
+	margin-bottom: 200px;
 }
 
 table {
@@ -84,10 +84,11 @@ input {
 	padding: 3px;
 	border-radius: 3px;
 	border: none;
+	display: block;
 }
 
 #submit {
-	margin-left: 10px;
+	margin-top: 10px;
 }
 
 #failureToEdit {

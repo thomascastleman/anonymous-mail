@@ -2,11 +2,22 @@
 <html>
 <head>
 	<title>Response Successful!</title>
+	<link rel="stylesheet" type="text/css" href="../letterSentSuccess.css">
+	<link rel="stylesheet" type="text/css" href="../navbar.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
-	<a href="/admin">Back</a>
-	<h1>Your response was sent successfully!</h1>
-	<h3>What you wrote:</h3>
-	<p>{{content}}</p>
+	<ul>
+		<li><a href="/admin">Back</a></li>
+	</ul>
+	<div class="w3-display-middle darken">
+	  	<center>
+		    <p id="success">Your response was sent successfully!</p>
+			<p>What you wrote:</p>
+			<p id="letterContent" align="left">{{{content}}}</p>
+		</center>
+	</div>
 </body>
 </html>
